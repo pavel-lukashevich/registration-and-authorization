@@ -31,22 +31,20 @@ class MainController
      */
     public static function isGuest()
     {
-        //проверяем сессию, если ее нет, проверяем куки
-        if (!self::existSession()) {
-            // если куки есть и он не пустой
-            if (isset($_COOKIE['login']) && $_COOKIE['login'] != '') {
-                $users = new Users();
-                // если куки-ключ совпадает с ключем в БД
-                if ($users->equalityCookieKey($_COOKIE['login'], $_COOKIE['cookieKey'])) {
-                    // делаем новую сессию
-                    $numberUser = (int)$users->searchObjectNumberByLogin($_COOKIE['login']);
-                    Session::create($users, $numberUser);
-                    return false;
-                }
+        // если сеесия есть, то не гость
+        if (self::existSession()) return false;
+        //  если куки есть и он не пустой, то не гость
+        if (isset($_COOKIE['login']) && $_COOKIE['login'] != '') {
+            $users = new Users();
+            // если куки-ключ совпадает с ключем в БД
+            if ($users->equalityCookieKey($_COOKIE['login'], $_COOKIE['cookieKey'])) {
+                // делаем новую сессию
+                $numberUser = (int)$users->searchObjectNumberByLogin($_COOKIE['login']);
+                Session::create($users, $numberUser);
+                return false;
             }
-            return true;
         }
-        return false;
+        return true;
     }
 
     /**

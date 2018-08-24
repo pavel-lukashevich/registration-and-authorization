@@ -19,15 +19,16 @@ class Users
 
     /**
      * валидация данных и регистраци пользователя
-     * @param $signUpForm
-     * @return bool|null
+     * @param array $signUpForm
+     * @return bool|array
      */
     public function signUpUser($signUpForm)
     {
         // валидация принятых данных
         $this->validateForSignUp($signUpForm);
 
-        // если есть ошибоки валидации, передаем массив ошибок
+        // если есть ошибки валидации, передаем массив ошибок
+        // если ошибок нет то добавляем поля в объект БД и сохраняем файл
         if ($this->errorsValidate !== null) {
             return $this->errorsValidate;
         } else {
@@ -46,8 +47,8 @@ class Users
 
     /**
      * валидация данных и авторизация пользователя
-     * @param $signInForm
-     * @return bool|null
+     * @param array $signInForm
+     * @return bool|array
      */
     public function signInUser($signInForm)
     {
@@ -64,8 +65,7 @@ class Users
 
     /**
      * валидация полей и проверка пароля для авторизации
-     * @param $login string
-     * @param $password string
+     * @param array $signInForm
      */
     public function validateForSignIn(array $signInForm)
     {
@@ -82,7 +82,7 @@ class Users
 
     /**
      * валидация полей и проверка пароля для регистрации
-     * @param $signUpForm array
+     * @param array $signUpForm
      */
     public function validateForSignUp($signUpForm)
     {
@@ -143,21 +143,22 @@ class Users
 
     /**
      * проверяем формат записи email
-     * @param $email
+     * @param string $email
      * @return bool
      */
     public function validateEmale($email)
     {
         if (preg_match('/.+@.+\..+/i', $email) == 0) {
             $this->errorsValidate[] = '"' . $email . '" не соответствует формату email';
+            return false;
         }
         return true;
     }
 
     /**
      * сравниваем пароль и подтверждение
-     * @param $password
-     * @param $confirm_password
+     * @param string $password
+     * @param string $confirm_password
      * @return bool
      */
     public function validatePassword($password, $confirm_password)
@@ -171,8 +172,8 @@ class Users
 
     /**
      * проверяем соответствие введенного пароля соленому хэшу в базе
-     * @param $user
-     * @param $password
+     * @param object $user
+     * @param string $password
      * @return bool
      */
     public function equalityPassword($user, $password)
@@ -186,8 +187,8 @@ class Users
 
     /**
      * солим пароль и возвращаем хэш
-     * @param $password
-     * @param $salt
+     * @param string $password
+     * @param string $salt
      * @return string
      */
     public function makeSaltyPassword($password, $salt)
@@ -208,7 +209,7 @@ class Users
 
     /**
      * проверяет уникальность логина
-     * @param $login
+     * @param string $login
      * @return bool
      */
     public function validateUniqueLogin($login)
@@ -223,7 +224,7 @@ class Users
 
     /**
      * ищет по логину и возвращает объект пользователя или false из массива объектов базы
-     * @param $login
+     * @param string $login
      * @return bool|object
      */
     public function searchByLogin($login)
@@ -235,13 +236,12 @@ class Users
                 break;
             }
         }
-//            var_dump($resultObject);
         return $resultObject;
     }
 
     /**
      * возвращает номер объекта в массиве объектов БД
-     * @param $login
+     * @param string $login
      * @return bool|int
      */
     public function searchObjectNumberByLogin($login)
@@ -260,7 +260,7 @@ class Users
 
     /**
      * проверяем email на уникальность
-     * @param $email
+     * @param string $email
      * @return bool
      */
     public function validateUniqueEmail($email)
@@ -275,7 +275,7 @@ class Users
 
     /**
      * ищет по email и возвращает объект пользователя или false из массива объектов базы
-     * @param $email
+     * @param string $email
      * @return bool|object
      */
     public function searchByEmail($email)
@@ -292,8 +292,8 @@ class Users
 
     /**
      * добавляет пользователю ключ сессии и сохраняет в БД
-     * @param $number
-     * @param $sessionKey
+     * @param integer $number
+     * @param string $sessionKey
      * @return SimpleXMLElement
      */
     public function addSessionKey($number, $sessionKey)
@@ -305,8 +305,8 @@ class Users
 
     /**
      * сравнивает сессионный-ключ пользователя и ключ в БД
-     * @param $login
-     * @param $sessioKey
+     * @param string $login
+     * @param string $sessioKey
      * @return bool
      */
     public function equalitySessionKey($login, $sessioKey)
@@ -320,8 +320,8 @@ class Users
 
     /**
      * добавляет пользователю ключ куки и сохраняет в БД
-     * @param $number
-     * @param $cookieKey
+     * @param integer $number
+     * @param string $cookieKey
      * @return SimpleXMLElement
      */
     public function addCookieKey($number, $cookieKey)
@@ -333,8 +333,8 @@ class Users
 
     /**
      * сравнивает куки-ключ пользователя и ключ в БД
-     * @param $login
-     * @param $cookieKey
+     * @param string $login
+     * @param string $cookieKey
      * @return bool
      */
     public function equalityCookieKey($login, $cookieKey)
