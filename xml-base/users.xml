@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<users>
+    <user>
+        <login>111</login>
+        <email>111@111.111</email>
+        <name>q111</name>
+        <salt>81cd76d6b0</salt>
+        <password_hash>0a9b977c97decc410677974784048911</password_hash>
+        <session_key>b079a70c01e8e6757e2e</session_key>
+        <cookie_key>639b3e1feb6fe121644d</cookie_key>
+    </user>
+    <user>
+        <login>222</login>
+        <email>222@222.222</email>
+        <name>q222</name>
+        <salt>b8295c1157</salt>
+        <password_hash>b2b5de49db80cf8611461f9c8d67f382</password_hash>
+        <session_key>bcc34d877c7895ee3725</session_key>
+    </user>
+    <user>
+        <login>!@#$%</login>
+        <email>111@111.1111</email>
+        <name>!@#$%</name>
+        <salt>2b65b9c336</salt>
+        <password_hash>0d0dac3cf2355ee6e9b1dbe1bc6f3bdf</password_hash>
+        <session_key>70a473ac1cbb4233e109</session_key>
+    </user>
+    <user>
+        <login>&lt;/user&gt;</login>
+        <email>1111@111.111</email>
+        <name>&lt;/user&gt;</name>
+        <salt>88d313f6e6</salt>
+        <password_hash>8f1dc4982a73c285a59a66cacb798465</password_hash>
+    <session_key>b4c0fbc98e6bb624fc92</session_key></user>
+<user><login>/.,?&gt;&lt;';l":L</login><email>111@1111.111</email><name>/.,?&gt;&lt;';l":L</name><salt>a892457afa</salt><password_hash>605196b48b044fd3843bf13c5d7908c3</password_hash><cookie_key>c36f11d38f1bb2437813</cookie_key><session_key>0d0e1e4ad63d5b5affc0</session_key></user></users>
